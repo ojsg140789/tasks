@@ -1,0 +1,38 @@
+<mat-table #table [dataSource]="dataSource" class="mat-elevation-z8" cdkDropList (cdkDropListDropped)="drop($event)"
+    cdkDropListData="dataSource">
+
+    <ng-container matColumnDef="name" sticky>
+        <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <mat-icon class="example-drag-cursor">reorder</mat-icon>
+            <span>{{element.name}}</span>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="email">
+        <mat-header-cell *matHeaderCellDef> Correo electrónico </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.email}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="url">
+        <mat-header-cell *matHeaderCellDef> Video </mat-header-cell>
+        <mat-cell *matCellDef="let element"> 
+            <a [attr.href]="element.url" target="_blank" rel="noopener noreferrer">Video {{element.name}}</a>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> Acciones </mat-header-cell>
+        <mat-cell *matCellDef="let element">
+            <button mat-icon-button aria-label="Edit" (click)="updateTask(element)">
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button aria-label="Trash" (click)="removeTask(element)">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" cdkDrag [cdkDragData]="row"></mat-row>
+</mat-table>

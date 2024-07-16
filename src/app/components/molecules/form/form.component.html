@@ -1,0 +1,57 @@
+<form [formGroup]="taskForm" class="formTask" (ngSubmit)="submitForm()">
+    <h4>Tarea</h4>
+    <p>
+        <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="name">
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field>
+            <mat-label>Correo</mat-label>
+            <input matInput formControlName="email">
+        </mat-form-field>
+    </p>
+    <p>
+        <mat-form-field>
+            <mat-label>Ciudad</mat-label>
+            <input matInput formControlName="city">
+        </mat-form-field>
+    </p>
+    <p>
+        Presiona para consultar el clima <br />
+        <button type="button" mat-flat-button [disabled]="!taskForm.value.city" (click)="getWeather(taskForm.value.city);">Consultar
+            clima</button>
+    </p>
+    @if(weather) {
+    <h6 class="bc-d7e3ff">Clima de la ciudad: {{weather}}</h6>
+    }
+    <mat-divider></mat-divider>
+    @if(!showVideo) {
+    <p>
+        Presiona para grabar video de descripción de la tarea <br />
+        <button mat-flat-button (click)="getVideo();" type="button">Grabar video</button>
+    </p>
+    }
+    <div [hidden]="!showVideo">
+        <video #videoElement width="320" height="240" autoplay></video>
+        <p>
+            @if(!recoding) {
+                <button mat-flat-button type="button" (click)="startRecording()">Grabar</button>
+            } @else {
+                <button mat-flat-button type="button" (click)="stopRecording()">Detener Grabación</button>
+            }
+        </p>
+    </div>
+    @if(videoURL && !showVideo) {
+        <div>
+            <h6>Vista Previa del Video</h6>
+            <video [src]="videoURL" controls width="320" height="240"></video>
+        </div>
+    }
+    
+    <div class="submit-button">
+        <button mat-button routerLink="/home" type="button">Cancelar</button>
+        <button mat-flat-button [disabled]="taskForm.invalid || !weather || !videoURL" type="submit">Guardar</button>
+    </div>
+</form>
