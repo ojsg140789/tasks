@@ -126,6 +126,7 @@ export class FormComponent implements OnInit {
           this.videoURL = URL.createObjectURL(videoBlob);
           this.uploadVideo(videoBlob);
           this.chunks = [];
+          stream.getTracks().forEach(track => track.stop());
         };
       })
       .catch((error) => {
