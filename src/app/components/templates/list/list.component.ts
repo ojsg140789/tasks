@@ -17,7 +17,6 @@ import { TasksService } from '../../../services/tasks.service';
   styleUrl: './list.component.css'
 })
 export class ListComponent implements OnInit {
-  @Input() tasks = [];
   @ViewChild('table', { static: true }) table: MatTable<any>;
   displayedColumns: string[] = ['name', 'email', 'url', 'actions'];
   dataSource: any[] = [];
